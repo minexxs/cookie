@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+</head>
+
+<body> 
+      <div class="form">
+            <div id="J_UserName" class="loginItem">
+                <label>用户名：</label>
+                <input maxlength="200" value="" name="u_username" class="log_Field" id="wsc-username">
+            </div>
+            <div class="loginItem" id="J_Password">
+                <label>密&nbsp;&nbsp;码：</label>
+                <input type="password" value="" maxlength="20" name="u_pwd" class="log_Field" id="wsc-password">
+            </div>
+
+            <div class="loginRemember">
+                <input type="checkbox" checked="true" name="chkRememberUsername" class="checkbox" id="rmbUser">
+             <label for="rmbUser">记住用户名</label>
+               
+            </div>
+            <div class="loginItem loginButton" id="wait">
+                                                  <!-- 调用这个方法 -->
+                <input type="button" value="登录" class="button" id="log_Commit">
+            </div>
+        </div>
+</body>
+</html>
+<script src="./Scripts/jquery.min.js"></script>
+<script src="./Scripts/jquery.cookie.js"></script>
+<script type="text/javascript">
+    //初始化页面时验证是否记住了密码
+    $(document).ready(function () {
+        if ($.cookie("rmbUser") == "true") {
+            $("#rmbUser").attr("checked", true);
+            $("#wsc-username").val($.cookie("userName"));
+            $("#wsc-password").val($.cookie("passWord"));
+        }
+    });
+    function saveUserInfo() {
+        if ($("#rmbUser").prop("checked")) {
+            var userName = $("#wsc-username").val();
+            var passWord = $("#wsc-password").val();
+            $.cookie("rmbUser", "true", {
+                expires: 7
+            }); // 存储一个带7天期限的 cookie
+            $.cookie("userName", userName, {
+                expires: 7
+            }); // 存储一个带7天期限的 cookie
+            $.cookie("passWord", passWord, {
+                expires: 7
+            }); // 存储一个带7天期限的 cookie
+        } else {
+            console.log('000');
+            $.cookie("rmbUser", "false", {
+                expires: -1
+            }); // 删除 cookie
+            $.cookie("userName", '', {
+                expires: -1
+            });
+            $.cookie("passWord", '', {
+                expires: -1
+            });
+        }
+    }
+    $('#log_Commit').on('click',function(){
+     console.log('点击');
+
+    })
+</script>
